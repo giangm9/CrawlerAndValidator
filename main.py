@@ -1,8 +1,22 @@
-from AssignmentCrawler import CymonCrawler
+import requests
+import json
 
-crawler = CymonCrawler()
 
+def getPage(offset):    
+    print offset
+    url = 'https://cymon.io/api/nexus/v1/blacklist/ip/blacklist/?days=3&limit=10000&offset=' + offset
+    r = requests.get(url)
+    raw = json.loads(r.text)
+    result = raw['results']
+    
+    fo = open('cymon/blacklist'+offset +'.txt', 'w')
+    
+    for item in result:
+        print item
+        fo.write(item['url'] + '\n' + item['addr'] + '\n\n')
+    
+    fo.close()
+    print 'finish' + offset
 
-print crawler.get_domains()
-print crawler.get_urls()
-print crawler.get_ips()
+for i in range(9):
+    getPage(str(i*10000))
