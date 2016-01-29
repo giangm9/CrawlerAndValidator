@@ -21,10 +21,4 @@ class CymonCrawler:
         return self.get_arr('recent_ips', 'addr')
     
     def get_domains(self):
-        return self.get_arr('recent_domains', 'name')
-    
-crawler = CymonCrawler()
-
-print crawler.get_domains()
-print crawler.get_ips()
-print crawler.get_urls()    
+        return self.get_arr('recent_domains', 'name') 
