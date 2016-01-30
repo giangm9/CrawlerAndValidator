@@ -4,12 +4,12 @@ import json
 
 def getPage(offset):    
     print offset
-    url = 'https://cymon.io/api/nexus/v1/blacklist/ip/dnsbl/?days=3&limit=100000'
+    url = 'https://cymon.io/api/nexus/v1/blacklist/ip/botnet/?days=3'
     r = requests.get(url)
     raw = json.loads(r.text)
     result = raw['results']
     
-    fo = open('cymon/dnsbl.txt', 'w')
+    fo = open('cymon/botnet.txt', 'w')
     
     for item in result:
         print item

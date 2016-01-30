@@ -4,12 +4,12 @@ import json
 
 def getPage(offset):    
     print offset
-    url = 'https://cymon.io/api/nexus/v1/blacklist/ip/dnsbl/?days=3&limit=100000'
+    url = 'https://cymon.io/api/nexus/v1/blacklist/ip/blacklist/?days=3&limit=10000&offset=' + offset
     r = requests.get(url)
     raw = json.loads(r.text)
     result = raw['results']
     
-    fo = open('cymon/dnsbl.txt', 'w')
+    fo = open('cymon/blacklist'+offset +'.txt', 'w')
     
     for item in result:
         print item
@@ -18,8 +18,5 @@ def getPage(offset):
     fo.close()
     print 'finish' + offset
 
-
-getPage('')
-        
-
-
+for i in range(9):
+    getPage(str(i*10000))
