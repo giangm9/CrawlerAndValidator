@@ -4,7 +4,7 @@ import json
 
 def getPage(offset):    
     print offset
-    url = 'https://cymon.io/api/nexus/v1/blacklist/ip/blacklist/?days=3&limit=10000&offset=' + offset
+    url = 'https://cymon.io/api/nexus/v1/blacklist/ip/blacklist/?days=3&limit=100000&offset=0'
     r = requests.get(url)
     raw = json.loads(r.text)
     result = raw['results']
@@ -18,5 +18,4 @@ def getPage(offset):
     fo.close()
     print 'finish' + offset
 
-for i in range(9):
-    getPage(str(i*10000))
+getPage('')
