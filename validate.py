@@ -1,5 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
+from VTotalValidater import *
+
+
 
 def getaddrs(filename):
     result = []
@@ -13,9 +16,9 @@ def validate(filename):
         return
     addrs = getaddrs(filename)
     url = 'https://www.virustotal.com/vi/ip-address/'
-    url += addrs[0]
+    url += '178.156.230.2'
     url += '/information'
-    print url
+    print 'URL : ' + url
     headers = {'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
                'accept-encoding':'gzip, deflate, sdch',
                'accept-language':'vi,en;q=0.8',
@@ -25,11 +28,18 @@ def validate(filename):
                'user-agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36}'}
     r = requests.get(url, headers = headers)
     soup = BeautifulSoup(r.text, 'html.parser')
-    fo = open('cymon_validate/' + filename + '.txt', 'w')    
-    print soup.find_all('div', {'id':'detected-urls'})
+    getIP(soup)    
+    for item in getDetectedUrls(soup):
+        print item['count']
+        print item['date']
+        print item['hosted-url']
+        
     
-    fo.write(addrs[0] + ": " + len(soup.find_all))
-    
-    fo.close()
-    
+def getIP(soup):    
+    for item in soup.find_all('h1'):
+        h1 = item.getText()
+        pos = h1.find(' ')
+        return h1[:pos]
+
 validate('cymon/blacklist3.txt')
+

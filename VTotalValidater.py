@@ -1,8 +1,11 @@
 
         
 def getData(soup, divID):
-    dataScope = soup.find('div', {'id' : divID})    
-    return dataScope.find_all('div', {'class': 'enum '})        
+    dataScope = soup.find('div', {'id' : divID})
+        
+    show = dataScope.find_all('div', {'class': 'enum '})
+    hide = dataScope.find_all('div', {'class': 'enum  hide'})
+    return show + hide
     
 def addSimple(newElement, item):
     count = item.find('span', {'class':'text-red vt-width-5' })
