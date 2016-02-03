@@ -1,18 +1,21 @@
 from bs4 import BeautifulSoup
 import requests
 import DBHelper
+import ShowProgress
 class VTValidater:
     def __init__(self):
         pass
     
     def importData(self):
-        self.ips = DBHelper.getIPs()
+        self.ips = DBHelper.getIPs()        
         
 
-    def exportData(self):
-        for ipaddr in self.ips:
-            DBHelper.insertResult({'ipaddr' : ipaddr, 
-                                   'detected' : self.__getDetected()})
+    def exportData(self):        
+        for ipaddr in self.ips.find():
+            print ipaddr['addr']
+#             ShowProgress.show(self.ips.index(ipaddr), self.ips.count())
+#             DBHelper.insertResult({'ipaddr' : ipaddr, 
+#                                    'detected' : self.__getDetected()})
     
     def __getHtml(self, ipaddr):
         url = 'https://www.virustotal.com/vi/ip-address/'
@@ -51,4 +54,8 @@ class VTValidater:
         return result
         
     def __getDetected(self):
-        return self.__getBaseInfo(['detected-urls'])            
+        return self.__getBaseInfo(['detected-urls'])
+                
+v = VTValidater()
+v.importData()
+v.exportData()

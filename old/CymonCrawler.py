@@ -40,7 +40,5 @@ class CymonCrawler:
 
 c = CymonCrawler()
 c.crawl()
-#v = VTValidater()
-#v.importData()
 
 DBHelper.check()

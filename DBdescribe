@@ -1,0 +1,21 @@
+db : Cymon
+
+collection : 
+
+adresses
+
+adress : ''
+adress_type : ip/domain
+C_reported_days : []
+	{
+		reported_type : 
+		day: 
+	}
+VT_detected : []
+	{
+		count 
+		time 
+		detected_type : 'url/file'
+		value : 		
+	}
+VT_undetected : []
