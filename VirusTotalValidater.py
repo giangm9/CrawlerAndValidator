@@ -7,6 +7,7 @@ class VTValidater:
     
     def importData(self):
         self.ips = DBHelper.getIPs()
+        
 
     def exportData(self):
         for ipaddr in self.ips:
@@ -50,4 +51,4 @@ class VTValidater:
         return result
         
     def __getDetected(self):
-        return self.__getBaseInfo(['detected-urls'])
+        return self.__getBaseInfo(['detected-urls'])            

@@ -4,6 +4,7 @@ client = MongoClient()
 
 db = client['cymon']
 ips = db['ips']
+vtotal = db['vtotal']
 
 
 def insertIP(addr, date, tag):
@@ -16,22 +17,30 @@ def insertIP(addr, date, tag):
             ips.update({'addr' : addr}, {'$set' : {t : []}})
     
     cursor = ips.find_one({'addr' : addr})
+    newlist = list(set(cursor[tag] + [date.strftime('%m/%d/%Y')]))
     ips.update( {'addr' : addr}, 
-                { "$set" : 
-                 { tag : cursor[tag] + [date.strftime('%m/%d/%Y')]}
+                { "$set" :
+                 { tag : newlist}
                 }
                )
 
     
 def check():
-    db = client['cymon']
-    ips = db['ips']
-    for item in ips.find():
+    
+    for item in vtotal.find():
         print item    
-
+    for item in ips.find():
+        print item
+    
 def getIPs():
     return ips
     
 
 def insertResult(result):
+    cursor = vtotal.find_one({'addr' : result['addr']})
+    vtotal.update({'addr' : result['addr']},
+                  {'$set':
+                   {'detected' :cursor['detected'] + result['detected']}
+                   })
+
     

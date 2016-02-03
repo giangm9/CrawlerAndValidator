@@ -1,6 +1,0 @@
-https://cymon.io/api/nexus/v1/ip/81.88.48.95
-81.88.48.95
-
-https://cymon.io/api/nexus/v1/ip/108.179.252.83
-108.179.252.83
-
