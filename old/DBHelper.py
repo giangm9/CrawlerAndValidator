@@ -24,7 +24,6 @@ def insertIP(adr):
                )
     
 def check():
-    
     for item in vtotal.find():
         print item    
     
@@ -40,5 +39,3 @@ def insertResult(result):
 #                   {'$set':
 #                    {'detected' : cursor['detected'] + result['detected']}
 #                    })
-
-    
