@@ -5,9 +5,10 @@
 # address : ''
 # address_type : ip/domain
 # VT_detections : []
-#     {   count 
-#         time 
-#         detected_type : 'url/hash'
+#     {   attempts :
+#         detected :    
+#         time :
+#         detect_type : 'url/hash'
 #         value : 
 #     }
 #===============================================================================
@@ -31,8 +32,6 @@ def updateAddress(item):
     except Exception:
         new_VTDetections = []
     
-    
-    
     collection.update({'address' : item['address']},
                       {"$set":
                        {'address_type' : item['address_type'],
@@ -43,5 +42,6 @@ def updateAddress(item):
 def getAddresses():
     result = []
     for row in collection.find():
-        result.append(row['address'])
+        result.append(row)
+    return result
     

@@ -1,6 +1,6 @@
 import requests
 import json
-#import ShowProgress
+import ShowProgress
 import DBHelper
 
 
@@ -29,7 +29,7 @@ def getCymonPage( day, tag, adrtype, limit, offset):
         result = raw['results']        
                 
         for item in result:
-            #ShowProgress.show(result.index(item) + 1, len(result))
+            ShowProgress.show(result.index(item) + 1, len(result))
             solve(item['addr'], adrtype)
         
 def solve(addr, address_type):

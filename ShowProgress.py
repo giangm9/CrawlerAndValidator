@@ -6,6 +6,8 @@ def show(current, finishvalue):
         print '\r',
     else:
         print
+def check():
+    for i in range(100000):
+        show(i+1, 100000)
 
-for i in range(100000):
-    show(i+1, 100000)
+check()
