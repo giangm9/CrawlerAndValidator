@@ -2,6 +2,9 @@ import DBHelper
 import requests
 from bs4 import BeautifulSoup
 
+# TODO:
+# complete the id lists
+
 urlDivIDs = ['detetected-urls']
 fileDivIDs = ['detected-downloaded']
 
@@ -9,10 +12,20 @@ def getAddressesFromDB():
     return DBHelper.getAddresses()
     pass
 
-def validateAddress(address):
-    pass
+def validateAll():
+    validateAddress(getAddressesFromDB()[0])
 
-def getSoupFromAddresses(address):
+def validateAddress(address):
+    print address['address'] + " | " + address['address_type']    
+    detections = __getDetections(
+                    __getDetectedSoups(
+                        __getSoupFromAddresses(address)))    
+
+    address.update({'detections' : detections})    
+    DBHelper.updateAddress(address);    
+    
+
+def __getSoupFromAddresses(address):
     url = 'https://www.virustotal.com/vi/'
     url += {'ip' : 'ip-address', 'domain' : 'domain'}[address['address_type']]
     url += '/' + address['address']
@@ -29,7 +42,7 @@ def getSoupFromAddresses(address):
     r = requests.get(url, headers=headers)
     return BeautifulSoup(r.text, 'html.parser')
 
-def getDetectedSoups(soup):
+def __getDetectedSoups(soup):
     detectIds = urlDivIDs + fileDivIDs    
     # find detections html    
     detetections = []
@@ -39,10 +52,10 @@ def getDetectedSoups(soup):
             continue
         show = scope.find_all('div', {'class' : 'enum '})
         hide = scope.find_all('div', {'class' : 'enum  hide'})
-        detetections += show + hide        
+        detetections += show + hide
     return detetections
 
-def getDetections(detectedSoups):
+def __getDetections(detectedSoups):
     detections = []    
     for item in detectedSoups:
         # detected/attempts
@@ -63,7 +76,7 @@ def getDetections(detectedSoups):
         if parentID in urlDivIDs:
             detectType = 'url'
         else:
-            detectType = 'domain'
+            detectType = 'hash'
         
         #value
         value = item.find('a').text.strip()
@@ -71,6 +84,7 @@ def getDetections(detectedSoups):
                            'attempts': attempts, 
                            'time': detectedDate, 
                            'detected_type': detectType, 
-                           'value' : value})        
-    
+                           'value' : value})
+    return detections    
 
+validateAll()

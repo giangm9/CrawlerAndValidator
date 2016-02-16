@@ -3,8 +3,6 @@ import json
 import ShowProgress
 import DBHelper
 
-
-    
 def crawl(days, tags, adrtypes):
         for day in days:
             for tag in tags:
