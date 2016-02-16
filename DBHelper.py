@@ -21,13 +21,16 @@ db = client['cymon']
 collection = db['addresses']
 
 def updateAddress(item):
+    print 'Updating item ', item['address']
     row = collection.find_one({'address': item['address']})
-         
-    if row == None :
-        row = collection.insert({'address': item['address'],
+    
+    
+    if row == None :        
+        collection.insert({'address': item['address'],
                                  'address_type' : item['address_type'], 
                                  'detections' : []})
-     
+        row = collection.find_one({'address' : item['address']})
+    
     if not('detections' in row.keys()):
         row['detections'] = []
     
@@ -38,6 +41,7 @@ def updateAddress(item):
     noDup = {v['value']:v for v in item['detections']}.values()
     collection.update({'address' : item['address']},
                       {"$set":{'detections': noDup}})
+    print 'New size : ', len(item['detections'])
 
 def getAddresses():
     result = []

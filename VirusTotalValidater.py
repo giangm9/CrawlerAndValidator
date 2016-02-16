@@ -8,20 +8,23 @@ from bs4 import BeautifulSoup
 urlDivIDs = ['detetected-urls']
 fileDivIDs = ['detected-downloaded']
 
-def getAddressesFromDB():
+def __getAddressesFromDB():
     return DBHelper.getAddresses()
     pass
 
 def validateAll():
-    validateAddress(getAddressesFromDB()[0])
+    print 'Valdating all of addresses..'    
+    validateAddress(__getAddressesFromDB()[0])
 
 def validateAddress(address):
-    print address['address'] + " | " + address['address_type']    
+    print 'Current address : ', address['address'], '   Type : ', address['address_type']
+    
+    print 'Crawling from virustotal.com : ',
     detections = __getDetections(
                     __getDetectedSoups(
                         __getSoupFromAddresses(address)))    
-
-    address.update({'detections' : detections})    
+    print 'OK'
+    address.update({'detections' : detections})
     DBHelper.updateAddress(address);    
     
 
@@ -30,7 +33,7 @@ def __getSoupFromAddresses(address):
     url += {'ip' : 'ip-address', 'domain' : 'domain'}[address['address_type']]
     url += '/' + address['address']
     url += '/information'
-    print url
+    print 'URL: ', url
     
     headers = {'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
            'accept-encoding':'gzip, deflate, sdch',

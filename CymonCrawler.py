@@ -3,6 +3,8 @@ import json
 import ShowProgress
 import DBHelper
 
+
+
 def crawl(days, tags, adrtypes):
         for day in days:
             for tag in tags:
@@ -10,11 +12,8 @@ def crawl(days, tags, adrtypes):
                     getCymonPage(str(day), tag, adrtype, '100000', '0')
                     pass
         
-def getCymonPage( day, tag, adrtype, limit, offset):
-        print 'delta-day : ' + day     + '     tag   : ' + tag
-        print 'adrtype   : ' + adrtype + '    limit : ' + limit
-        print 'offset    : ' + offset
-        
+def getCymonPage( day, tag, adrtype, limit, offset):        
+        print 'Crawling from cymon.io...'
         url = 'https://cymon.io/api/nexus/v1/blacklist/'
         url += adrtype + '/' + tag
         url += '/?days=' + day
@@ -25,13 +24,15 @@ def getCymonPage( day, tag, adrtype, limit, offset):
         r = requests.get(url)
         raw = json.loads(r.text)
         result = raw['results']        
-                
+        print 'Count : ', len(result)
         for item in result:
             ShowProgress.show(result.index(item) + 1, len(result))
-            solve(item['addr'], adrtype)
+            DBHelper.updateAddress({'address': item['addr'], 
+                                    'address_type': adrtype})
+            
         
-def solve(addr, address_type):
-        newItem = {'address' : addr, 'address_type': address_type}
-        DBHelper.updateAddress(newItem)
         
-crawl(range(1,2), ['malware'], ['ip'])
+        
+crawl(range(1,3), 
+      ['malware'], 
+      ['ip'])
