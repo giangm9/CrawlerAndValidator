@@ -18,7 +18,7 @@ for i in range (1,5):
         name = u'\u2019'
         name = raw['results'][i]['name']
         id = raw['results'][i]['id']
-        
+
         if raw['results'][i]['modified'][0:10] == str(today)[0:10]:
             f.write("name: " + smart_str(name) + "(id: " + str(id) + ")" + "\n")
             f.write("created time: " + raw['results'][i]['created'] + "\n")
