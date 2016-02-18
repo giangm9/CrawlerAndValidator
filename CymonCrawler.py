@@ -9,7 +9,7 @@ def crawl(days, tags, adrtypes):
         for day in days:
             for tag in tags:
                 for adrtype in adrtypes:
-                    getCymonPage(str(day), tag, adrtype, '100000', '0')
+                    getCymonPage(str(day), tag, adrtype, '10', '0')
                     pass
         
 def getCymonPage( day, tag, adrtype, limit, offset):        
@@ -27,12 +27,7 @@ def getCymonPage( day, tag, adrtype, limit, offset):
         print 'Count : ', len(result)
         for item in result:
             ShowProgress.show(result.index(item) + 1, len(result))
+            if not ('addr' in item.keys()):
+                item['addr'] = item['name']
             DBHelper.updateAddress({'address': item['addr'], 
                                     'address_type': adrtype})
-            
-        
-        
-        
-crawl(range(1,3), 
-      ['malware'], 
-      ['ip'])

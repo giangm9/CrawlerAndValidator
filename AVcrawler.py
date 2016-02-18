@@ -1,6 +1,7 @@
 import requests
 import json
 import DBHelper
+import datetime
 
 def crawl(date):
     url = 'https://otx.alienvault.com/otxapi/search/?q=&sort=null&limit=100&page=1'
@@ -15,10 +16,7 @@ def crawl(date):
             for indicator in data:
                 if indicator["type"] in ["IPv4", "IPv6", "domain"]:
                     item = {"address": indicator["indicator"],
-                            "address_type": indicator["type"]}
+                            "address_type": indicator["type"]}                    
                     DBHelper.updateAddress(item);
 
         url = r.json()["next"]
-
-today = datetime.datetime.today().strftime("%Y-%m-%d")
-crawl(today)

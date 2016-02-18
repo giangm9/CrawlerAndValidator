@@ -13,8 +13,9 @@ def __getAddressesFromDB():
     pass
 
 def validateAll():
-    print 'Valdating all of addresses..'    
-    validateAddress(__getAddressesFromDB()[0])
+    print 'Valdating all of addresses..'
+    for address in __getAddressesFromDB():
+        validateAddress(address)
 
 def validateAddress(address):
     print 'Current address : ', address['address'], '   Type : ', address['address_type']
@@ -90,4 +91,3 @@ def __getDetections(detectedSoups):
                            'value' : value})
     return detections    
 
-validateAll()

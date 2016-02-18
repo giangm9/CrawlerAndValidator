@@ -17,7 +17,7 @@
 from pymongo.mongo_client import MongoClient
 
 client = MongoClient()
-db = client['cymon']
+db = client['CymonAV']
 collection = db['addresses']
 
 def updateAddress(item):
