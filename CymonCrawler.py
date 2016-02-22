@@ -30,9 +30,3 @@ def getCymonPage( day, tag, adrtype, limit, offset):
             DBHelper.updateAddress({'address': item['addr'], 
                                     'address_type': adrtype})
             
-        
-        
-        
-crawl(range(1,3), 
-      ['malware'], 
-      ['ip'])
