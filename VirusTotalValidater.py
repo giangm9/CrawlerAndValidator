@@ -90,4 +90,3 @@ def __getDetections(detectedSoups):
                            'detected_type': detectType, 
                            'value' : value})
     return detections    
-

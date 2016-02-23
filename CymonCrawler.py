@@ -31,3 +31,5 @@ def getCymonPage( day, tag, adrtype, limit, offset):
                 item['addr'] = item['name']
             DBHelper.updateAddress({'address': item['addr'], 
                                     'address_type': adrtype})
+
+                                    
