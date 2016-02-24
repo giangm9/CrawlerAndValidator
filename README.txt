@@ -30,6 +30,22 @@ DESCRIBE
 --------
 - CymonCrawler.py import DailyCrawler.py. DailyCrawler.py auto crawl and validate daily all usefull information from https://cymon.io.
 - AVcrawler.py crawl daily all usefull information from https://otx.alienvault.com/browse.
+- Database: 
+#===============================================================================
+# db : cymon
+# collection : addresses
+# 
+# address : ''
+# address_type : ip/domain
+# detections : []
+#     {   
+#         detected :
+#         attempts :
+#         time :
+#         detect_type : 'url/hash'
+#         value : 
+#     }
+#===============================================================================
 
 GUIDE
 -----
