@@ -1,5 +1,5 @@
-PROJECT NAME
-------------
+PROJECT
+-------
 Construction Crawler from the site to provide resources about the Malicious
 
 INTRODUCTION
@@ -7,14 +7,13 @@ INTRODUCTION
 
 Included:
 All source files(.py):
-- AVcrawler.py
-- CymonCrawler.py
-- DBHelper.py
-- DailyCrawler.py
-- ShowProgess.py
-- VirusTotalValidater.py
-- __init__.py
-- setup.py
+- AVcrawler.py			Crawl daily information from https://otx.alienvault.com/browse
+- CymonCrawler.py		Crawl daily information from https://cymon.io
+- DBHelper.py			Store and get information
+- DailyCrawler.py		Call to crawl either AVcrawler.py or CymonCrawler.py or both.		
+- VirusTotalValidater.py	Validate information crawled from https://www.virustotal.com.
+- setup.py			Install project
+
 This project use python 2.7 and beatifulsoup to crawl information from https://otx.alienvault.com/browse, https://cymon.io and it parse out usefull information. 
 Also, the project validate information at https://www.virustotal.com and store the information by MongoDB.
 
@@ -22,22 +21,20 @@ REPOSITORY: https://github.com/giangm9/CymonCrawler
 
 
 INSTALLATION
------------
-Step 1: Open Command Promt
-Step 2: write "python setup.py install"
+------------
+Step 1: Install python 2.7, MongoDB, beatifulsoup.
+Step 2: Open Command Promt.
+Step 3: write "pip install setup.py".
 
-DESCRIBE
---------
-- CymonCrawler.py import DailyCrawler.py. DailyCrawler.py auto crawl and validate daily all usefull information from https://cymon.io.
-- AVcrawler.py crawl daily all usefull information from https://otx.alienvault.com/browse.
-- Database: 
+DATABASE DESCRIBER
+------------------
 #===============================================================================
 # db : cymon
 # collection : addresses
 # 
 # address : ''
 # address_type : ip/domain
-# detections : []
+# Array of Embedded Documents:
 #     {   
 #         detected :
 #         attempts :
@@ -49,15 +46,11 @@ DESCRIBE
 
 GUIDE
 -----
-- AVcrawler.py: class "crawl" information from https://otx.alienvault.com/browse and store it on database.
-- CymonCrawler.py: class "crawl" information from https://cymon.io.
-		   class "getCymonPage" get some url, day, ... to support crawling.
-- DBHelper.py: class "updateAddress" to store information.
-	       class "getAddresses" to get information.
-- DailyCrawler.py: class "crawl" to crawl daily
+- Sample code: 
+>> from CrawlerAndValidator import DailyCrawler
+	
+>> DailyCrawler.crawl();
 
-TESTS
------
 
 MAINTAINERS
 -----------
