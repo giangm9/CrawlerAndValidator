@@ -20,8 +20,7 @@ client = MongoClient()
 db = client['CymonAV']
 collection = db['addresses']
 
-def updateAddress(item):
-    print 'Updating item ', item['address']
+def updateAddress(item):    
     row = collection.find_one({'address': item['address']})
     
     
@@ -41,7 +40,6 @@ def updateAddress(item):
     noDup = {v['value']:v for v in item['detections']}.values()
     collection.update({'address' : item['address']},
                       {"$set":{'detections': noDup}})
-    print 'New size : ', len(item['detections'])
 
 def getAddresses():
     result = []

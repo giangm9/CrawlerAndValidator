@@ -5,12 +5,20 @@ import datetime
 
 
 def crawl(delta_time=1):
-#     cymondelta = min(4, 1 + delta_time)
-#     CymonCrawler.crawl(range(1,), ['malware'], ['ip', 'domain'])
+    crawlCymon(delta_time)
+    crawAlienVault()
+    validateAll()
     
+    
+def crawlCymon(delta_time):
+    cymondelta = min(4, 1 + delta_time)
+    CymonCrawler.crawl(range(1,), ['malware'], ['ip', 'domain'])    
+
+def crawAlienVault():
     today = datetime.datetime.today().strftime("%Y-%m-%d")
-    AVcrawler.crawl(today)
+    AVcrawler.crawl(today)    
     
-    VirusTotalValidater.validateAll()
+def validateAll():
+    VirusTotalValidater.validateAll()    
     
 crawl()
